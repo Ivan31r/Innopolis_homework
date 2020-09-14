@@ -35,7 +35,8 @@ public class HashMap {
     /**
      * This method adds elements to HashMap collection.
      * Element have key and value. Key and Value can be any parameter.
-     * @param key Unique value in HashMap. Using in get/contains/delete methods.
+     *
+     * @param key   Unique value in HashMap. Using in get/contains/delete methods.
      * @param value Value of element.
      */
     public void put(Object key, Object value) {
@@ -52,28 +53,28 @@ public class HashMap {
             nodesArray[hash] = newNode;
             counter++;
             bucketCounter++;
-
-        } else {
-            Node currentNode = nodesArray[hash];
-            while (currentNode != null) {
-
-                if (currentNode.getKey().equals(newNode.getKey())) {
-                    currentNode.setValue(newNode.getValue());
-                    return;
-                } else if (currentNode.getNextNode() == null) {
-                    currentNode.setNextNode(newNode);
-                    counter++;
-                    break;
-                }
-                currentNode = currentNode.getNextNode();
-            }
         }
+        Node currentNode = nodesArray[hash];
+        while (currentNode != null) {
+
+            if (currentNode.getKey().equals(newNode.getKey())) {
+                currentNode.setValue(newNode.getValue());
+                return;
+            } else if (currentNode.getNextNode() == null) {
+                currentNode.setNextNode(newNode);
+                counter++;
+                break;
+            }
+            currentNode = currentNode.getNextNode();
+        }
+
     }
 
     /**
      * This methods use for update our old data and rewrite new data in HashMap.
      * If key was not a valid , we will get IllegalArgumentException.
-     * @param key We can get IllegalArgumentException, if key is not a valid.
+     *
+     * @param key   We can get IllegalArgumentException, if key is not a valid.
      * @param value This parameter will be changed in element.
      */
     public void update(Object key, Object value) {
@@ -91,12 +92,14 @@ public class HashMap {
 
             currentNode = currentNode.getNextNode();
         }
-        if (!isUpdated)
+        if (!isUpdated) {
             throw new IllegalArgumentException("Nonexistent key");
+        }
     }
 
     /**
      * Use for create unique hash for element.
+     *
      * @param newNode This method not for public using.
      * @return hash code in int type
      */
@@ -107,6 +110,7 @@ public class HashMap {
 
     /**
      * Return element by key.
+     *
      * @param key If key is wrong , we will get IllegalArgumentException.
      * @return True or IllegalArgumentException
      */
@@ -122,15 +126,16 @@ public class HashMap {
 
             currentNode = currentNode.getNextNode();
         }
-        if (currentNode != null) {
-            return currentNode.getValue();
+        if (currentNode == null) {
+            throw new IllegalArgumentException("Nonexistent key, try again with another key");
         }
-        else throw new IllegalArgumentException("Nonexistent key, try again with another key");
+        return currentNode.getValue();
 
     }
 
     /**
      * This method can delete our data from Hashmap.
+     *
      * @param key Variable of any type.
      * @return True or IllegalArgumentException
      */
@@ -160,7 +165,7 @@ public class HashMap {
                 }
             }
         }
-        if (!isFind){
+        if (!isFind) {
             throw new IllegalArgumentException("Wrong key, try again");
         }
 
@@ -170,6 +175,7 @@ public class HashMap {
 
     /**
      * Checking  HashMap , if this map contain element with this key.
+     *
      * @param key key of element
      * @return True or False
      */
@@ -179,6 +185,7 @@ public class HashMap {
 
     /**
      * Return count of all element in HashMap
+     *
      * @return int value of common quantity of elements.
      */
     public int getElementsCounter() {
