@@ -1,12 +1,13 @@
-package homework4;
+package homework4.main;
 
 
+import java.util.Map;
 import java.util.Objects;
 
-public class Node<K,V> {
-    public K key;
-    public V value;
-    public Node<K,V> nextNode;
+public class Node<K,V> implements Map.Entry<K, V> {
+    private K key;
+    private V value;
+    private Node<K,V> nextNode;
 
     public Node(K key, V value) {
         this.key = key;
@@ -14,6 +15,11 @@ public class Node<K,V> {
     }
     public Node(){
 
+    }
+    public void setCurrentNode(Node<K,V> node){
+        this.key=node.key;
+        this.value=node.value;
+        this.nextNode=node.nextNode;
     }
 
     public K getKey() {
@@ -28,8 +34,9 @@ public class Node<K,V> {
         return value;
     }
 
-    public void setValue(V value) {
+    public V setValue(V value) {
         this.value = value;
+        return this.value;
     }
 
     public Node<K, V> getNextNode() {
