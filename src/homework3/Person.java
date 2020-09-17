@@ -25,11 +25,7 @@ public class Person implements Comparable {
 
     @Override
     public String toString() {
-        return "Person{" +
-                "age=" + age +
-                ", name='" + name + '\'' +
-                ", sex=" + sex +
-                '}';
+        return "Person " + "age=" + age + " name=" + name  + " sex=" + sex ;
     }
 
     @Override
@@ -55,4 +51,6 @@ public class Person implements Comparable {
 //        return getName().compareTo(person.getName());
         return result;
     }
+
+
 }

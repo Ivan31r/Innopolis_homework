@@ -4,29 +4,23 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class Task4 {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
+
+        PeopleGenerator peopleGenerator = new PeopleGenerator();
+        Person[] peopleForFirstMethod = peopleGenerator.generatePeopleArray(30);
+        Person[] peopleForSecondMethod = peopleGenerator.generatePeopleArray(30);
+
 
         FirstMethod firstMethod = new FirstMethod();
-        PeopleGenerator peopleGenerator = new PeopleGenerator();
+        SecondMethod secondMethod = new SecondMethod();
+
         long start = System.currentTimeMillis();
-        Person[] people1 = peopleGenerator.generatePeopleArray(1000);
-        Person[] sortPerson = firstMethod.sortArray(people1);
+        firstMethod.sortArray(peopleForFirstMethod);
+        System.out.println("First method take = " + (System.currentTimeMillis() - start) + " ms");
 
-        System.out.println("First method took " + (System.currentTimeMillis()-start) + " ms");
-
-        firstMethod.showRes(people1);
-        firstMethod.showRes(sortPerson);
-
-//        SecondMethod secondMethod = new SecondMethod();
-//        PeopleGenerator peopleGenerator = new PeopleGenerator();
-//        long start = System.currentTimeMillis();
-//        Person[] people = peopleGenerator.generatePeopleArray(1000);
-//        System.out.println(Arrays.toString(people));
-//        secondMethod.sortArray(people);
-//        System.out.println("Total time " + (System.currentTimeMillis()-start));
-//        System.out.println(Arrays.toString(people));
-
-
+        start = System.currentTimeMillis();
+        secondMethod.sortArray(peopleForSecondMethod);
+        System.out.println("Second method take = " + (System.currentTimeMillis() - start) + " ms");
 
 
     }
