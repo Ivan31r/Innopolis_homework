@@ -1,6 +1,4 @@
-package homework3;
-
-import java.util.Arrays;
+package homework4;
 
 public class SecondMethod implements Sort {
 

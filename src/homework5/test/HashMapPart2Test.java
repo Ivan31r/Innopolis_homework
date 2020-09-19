@@ -1,10 +1,9 @@
-package homework4.test;
+package homework5.test;
 
-import homework4.main.HashMapPart2;
+import homework5.main.HashMapPart2;
 import org.junit.Assert;
 import org.junit.Test;
 
-import javax.swing.*;
 import java.util.*;
 
 public class HashMapPart2Test {

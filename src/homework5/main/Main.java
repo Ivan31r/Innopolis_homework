@@ -1,6 +1,4 @@
-package homework4.main;
-
-import homework4.main.HashMapPart2;
+package homework5.main;
 
 public class Main {
     public static void main(String[] args) {
