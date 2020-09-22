@@ -28,7 +28,7 @@ public class PeopleGenerator {
     }
 
     private static String[] readNames(String PATH) throws IOException {
-        Path paths = Paths.get("src/homework3/names.txt");
+        Path paths = Paths.get("src/homework4/names.txt");
         List<String> list = Files.readAllLines(paths);
         String[] names = new String[list.size()];
         for (int i = 0; i < list.size(); i++) {
