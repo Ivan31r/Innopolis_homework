@@ -1,2 +1,159 @@
-package homework7;public class GameOfLife {
+package homework7;
+
+import java.io.*;
+import java.util.Properties;
+
+public class GameOfLife {
+    public final char aliveCell;
+    private final char deadCell;
+    public char[][] gameField;
+    private int length;
+    private int width;
+    private final char willBeAlive = '✅';
+    private final char willBeDead = '☠';
+    private int changes;
+
+    public GameOfLife() {
+        aliveCell = '✖';
+        deadCell = '⯐';
+    }
+
+    public void readPropertiesAndInitializeField(File file) throws IOException {
+        Properties properties = new Properties();
+        properties.load(new FileReader(file));
+        length = Integer.parseInt(properties.getProperty("length"));
+        width = Integer.parseInt(properties.getProperty("width"));
+
+        gameField = new char[length][width];
+
+        fill();
+
+        for (int i = 1; i < properties.size() / 2; i++) {
+            int x = Integer.parseInt(properties.getProperty("x" + i));
+            int y = Integer.parseInt(properties.getProperty("y" + i));
+            gameField[x][y] = '✖';
+        }
+
+    }
+
+    public void writeProperties() throws FileNotFoundException {
+        try(PrintWriter printWriter = new PrintWriter("D:/Innopolis/src/homework7/output.properties")) {
+            Properties properties = new Properties();
+            int x = 1;
+            int y = 1;
+
+            for (int i = 0; i < 10; i++) {
+                for (int j = 0; j < 10; j++) {
+                    if (gameField[i][j] == aliveCell) {
+                        properties.setProperty("x" + x, String.valueOf(i));
+                        properties.setProperty("y" + y, String.valueOf(j));
+
+
+                        x++;
+                        y++;
+                    }
+                }
+            }
+            properties.store(printWriter,"");
+        }catch (IOException ex){
+            ex.getMessage();
+        }
+    }
+
+
+    private void fill() {
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < width; j++) {
+                gameField[i][j] = '⯐';
+            }
+        }
+    }
+
+    public void showGameField() {
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < width; j++) {
+                System.out.print(gameField[i][j]);
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    public void playGame() {
+        do {
+            nextLoop();
+        } while (changes != 0);
+    }
+
+    private void nextLoop() {
+        changes = 0;
+        for (int x = 0; x < length; x++) {
+            for (int y = 0; y < width; y++) {
+                checkCell(x, y);
+            }
+        }
+        setAliveValue();
+    }
+
+    private boolean innerCheck(int x, int y) {
+        return gameField[x][y] == aliveCell || gameField[x][y] == willBeDead;
+    }
+
+    private void checkCell(int x, int y) {
+        int counter = 0;
+
+        if (checkLimit(x, y + 1) && (innerCheck(x, y + 1))) {
+            counter++;
+        }
+        if (checkLimit(x, y - 1) && (innerCheck(x, y - 1))) {
+            counter++;
+        }
+        if (checkLimit(x - 1, y) && (innerCheck(x - 1, y))) {
+            counter++;
+        }
+        if (checkLimit(x + 1, y) && (innerCheck(x + 1, y))) {
+            counter++;
+        }
+        if (checkLimit(x + 1, y + 1) && (innerCheck(x + 1, y + 1))) {
+            counter++;
+        }
+        if (checkLimit(x + 1, y - 1) && (innerCheck(x + 1, y - 1))) {
+            counter++;
+        }
+        if (checkLimit(x - 1, y + 1) && (innerCheck(x - 1, y + 1))) {
+            counter++;
+        }
+        if (checkLimit(x - 1, y - 1) && (innerCheck(x - 1, y - 1))) {
+            counter++;
+        }
+
+        if (counter == 3 && gameField[x][y] == deadCell) {
+            gameField[x][y] = willBeAlive;
+            changes++;
+            return;
+        }
+        if ((counter > 3 || counter < 2) && (gameField[x][y] == aliveCell)) {
+            gameField[x][y] = willBeDead;
+            changes++;
+        }
+    }
+
+
+    private boolean checkLimit(int x, int y) {
+        return x >= 0 && y >= 0 && x < length && y < width;
+    }
+
+    private void setAliveValue() {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (gameField[i][j] == willBeAlive) {
+                    gameField[i][j] = aliveCell;
+                }
+                if (gameField[i][j] == willBeDead) {
+                    gameField[i][j] = deadCell;
+                }
+            }
+
+        }
+    }
 }

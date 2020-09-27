@@ -4,17 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
-        List<Person> personList = new ArrayList<>();
-        for (int i= 0;i<2000000000;i++){
 
-            personList.add(new Person(i,"name" + i,new Random().nextBoolean()));
+    public static void main(String[] args) {
+        doJavaHeadSpace();
+
+
+
+    }
+
+
+    public static void doJavaHeadSpace(){
+        Random random = new Random();
+        String name = "name";
+        List<Person> people = new ArrayList<>();
+        for (int i =0;i<100_000;i++){
+            people.add(new Person(i,name,random.nextBoolean()));
+            name+=name;
         }
-        personList.forEach(System.out::println);
-        scanner.nextLine();
+//        int age = 0;
+//        while (true){
+//            people.add(50_000,new Person(age,name,random.nextBoolean()));
+//            age++;
+//            if (age%500==0){
+//                people.remove(1000);
+//            }
+//        }
     }
 }
