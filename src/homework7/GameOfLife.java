@@ -1,6 +1,9 @@
 package homework7;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Properties;
 
 public class GameOfLife {
@@ -12,12 +15,22 @@ public class GameOfLife {
     private final char willBeAlive = '✅';
     private final char willBeDead = '☠';
     private int changes;
+//    private int start;
+//    private int end;
+//    AtomicInteger startIndex = new AtomicInteger();
+
 
     public GameOfLife() {
         aliveCell = '✖';
         deadCell = '⯐';
     }
 
+    /**
+     * Read data for initialize our figure and size of game field.
+     *
+     * @param file properties file with income data
+     * @throws IOException
+     */
     public void readPropertiesAndInitializeField(File file) throws IOException {
         Properties properties = new Properties();
         properties.load(new FileReader(file));
@@ -36,14 +49,17 @@ public class GameOfLife {
 
     }
 
-    public void writeProperties() throws FileNotFoundException {
-        try(PrintWriter printWriter = new PrintWriter("D:/Innopolis/src/homework7/output.properties")) {
+    /**
+     * Method for writing of final position of our figure.
+     */
+    public void writeProperties() {
+        try (PrintWriter printWriter = new PrintWriter("D:/Innopolis/src/homework7/output.properties")) {
             Properties properties = new Properties();
             int x = 1;
             int y = 1;
 
-            for (int i = 0; i < 10; i++) {
-                for (int j = 0; j < 10; j++) {
+            for (int i = 0; i < length; i++) {
+                for (int j = 0; j < width; j++) {
                     if (gameField[i][j] == aliveCell) {
                         properties.setProperty("x" + x, String.valueOf(i));
                         properties.setProperty("y" + y, String.valueOf(j));
@@ -54,9 +70,9 @@ public class GameOfLife {
                     }
                 }
             }
-            properties.store(printWriter,"");
-        }catch (IOException ex){
-            ex.getMessage();
+            properties.store(printWriter, "");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -69,6 +85,9 @@ public class GameOfLife {
         }
     }
 
+    /**
+     * Display of our figure.
+     */
     public void showGameField() {
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < width; j++) {
@@ -79,6 +98,9 @@ public class GameOfLife {
         System.out.println();
     }
 
+    /**
+     * Main method in this class. Do next loop, until we will touch the wall.
+     */
     public void playGame() {
         do {
             nextLoop();
@@ -94,6 +116,35 @@ public class GameOfLife {
         }
         setAliveValue();
     }
+
+
+//    public void doGame() throws InterruptedException {
+//        int core = Runtime.getRuntime().availableProcessors();
+//        int part = gameField.length / core;
+//        for (int count = 0; count < core; count++) {
+//            if (part - count == 1) {
+//                part = gameField.length - (((gameField.length / core) + 1) * (core - 1));
+//            }
+//            int finalPart = part;
+//            Thread thread = new Thread(() -> {
+//                doNextLoop(startIndex.get(), finalPart);
+//                startIndex.addAndGet(finalPart);
+//            });
+//            thread.start();
+//            thread.join();
+//
+//        }
+//        setAliveValue();
+//    }
+
+//    private void doNextLoop(int start, int end) {
+//        for (int i = start; i++ < end; i++) {
+//            for (int y = 0; y < width; y++) {
+//                checkCell(i, y);
+//            }
+//        }
+//    }
+
 
     private boolean innerCheck(int x, int y) {
         return gameField[x][y] == aliveCell || gameField[x][y] == willBeDead;
@@ -144,8 +195,8 @@ public class GameOfLife {
     }
 
     private void setAliveValue() {
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < width; j++) {
                 if (gameField[i][j] == willBeAlive) {
                     gameField[i][j] = aliveCell;
                 }
