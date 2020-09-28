@@ -1,6 +1,7 @@
-package homework7;
+package homework7.oneThreadGame;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 
 
 public class Main {
@@ -11,7 +12,7 @@ public class Main {
         gameOfLife.showGameField();
         long start = System.currentTimeMillis();
         gameOfLife.playGame();
-        System.out.println("Total time without Multithreading : " + (System.currentTimeMillis()-start) +"\n");
+        System.out.println("Total time without Multithreading : " + (System.currentTimeMillis()-start) +" ms\n");
         gameOfLife.showGameField();
         gameOfLife.writeProperties();
 

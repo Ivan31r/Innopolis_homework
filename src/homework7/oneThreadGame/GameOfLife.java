@@ -1,4 +1,4 @@
-package homework7;
+package homework7.oneThreadGame;
 
 import java.io.File;
 import java.io.FileReader;
@@ -15,9 +15,7 @@ public class GameOfLife {
     private final char willBeAlive = '✅';
     private final char willBeDead = '☠';
     private int changes;
-//    private int start;
-//    private int end;
-//    AtomicInteger startIndex = new AtomicInteger();
+
 
 
     public GameOfLife() {
