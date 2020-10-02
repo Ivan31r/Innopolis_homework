@@ -156,7 +156,7 @@ public class CleanerImpl implements Cleaner {
      * Method for delete keys from instance of Map implementation class.
      * @param map Income object,Map implementation,has key and value.
      * @param fieldsToCleanup Set with field for delete.
-     * @param fieldsToOutput Set with field for printing.
+     * @param fieldsToOutput Set with field for printing. 
      * @throws IllegalAccessException
      */
     private static void cleanMap(Map map, Set<String> fieldsToCleanup, Set<String> fieldsToOutput) throws IllegalAccessException {
