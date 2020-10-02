@@ -1,4 +1,5 @@
-package homework8;
+package homework8.main;
+
 
 import java.lang.reflect.Field;
 import java.util.*;

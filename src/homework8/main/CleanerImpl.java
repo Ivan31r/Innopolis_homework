@@ -1,4 +1,5 @@
-package homework8;
+package homework8.main;
+
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -8,27 +9,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class CleanerImpl implements Cleaner {
-    private final Object object;
-    private final Set<String> fieldsToCleanup;
-    private final Set<String> fieldsToOutput;
 
-    public CleanerImpl(Object object, Set<String> fieldsToCleanup, Set<String> fieldsToOutput) {
-        this.object = object;
-        this.fieldsToCleanup = fieldsToCleanup;
-        this.fieldsToOutput = fieldsToOutput;
+    public CleanerImpl(){
     }
 
-    public Object getObject() {
-        return object;
-    }
-
-    public Set<String> getFieldsToCleanup() {
-        return fieldsToCleanup;
-    }
-
-    public Set<String> getFieldsToOutput() {
-        return fieldsToOutput;
-    }
 
     /**
      * This method can clean your object by income parameters
@@ -39,14 +23,18 @@ public class CleanerImpl implements Cleaner {
      */
 
     @Override
-    public  void cleanUp(Object object, Set<String> fieldsToCleanup, Set<String> fieldsToOutput) throws IllegalAccessException {
-        if (object instanceof Map) {
-            Map map = (Map) object;
-            cleanMap(map, fieldsToCleanup, fieldsToOutput);
-            return;
+    public  void cleanUp(Object object, Set<String> fieldsToCleanup, Set<String> fieldsToOutput){
+        try {
+            if (object instanceof Map) {
+                Map map = (Map) object;
+                cleanMap(map, fieldsToCleanup, fieldsToOutput);
+                return;
+            }
+            cleanNotMapObject(object, fieldsToCleanup);
+            printFieldsAsString(object, fieldsToOutput);
+        }catch (IllegalAccessException ex){
+            ex.printStackTrace();
         }
-        cleanNotMapObject(object, fieldsToCleanup);
-        printFieldsAsString(object, fieldsToOutput);
 
 
     }
