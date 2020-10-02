@@ -12,13 +12,13 @@ public class GameTest {
 
     @Test
     public void multithreadingGameQuicklyWHenOneThreadGame() throws IOException, InterruptedException {
-        Game game = new Game();
+        Game game = new Game(50);
         game.readPropertiesAndInitializeField(new File("D:/Innopolis/src/homework7/input.properties"));
         long start1 = System.currentTimeMillis();
         game.playGame();
         long end1 = System.currentTimeMillis()-start1;
 
-        GameOfLife gameOfLife = new GameOfLife();
+        GameOfLife gameOfLife = new GameOfLife(50);
         gameOfLife.readPropertiesAndInitializeField(new File("D:/Innopolis/src/homework7/input.properties"));
         long start2 = System.currentTimeMillis();
         game.playGame();

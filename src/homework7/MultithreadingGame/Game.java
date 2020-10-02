@@ -18,11 +18,14 @@ public class Game {
     private final char willBeAlive = '✅';
     private final char willBeDead = '☠';
     private int changes;
+    private final int maxStepCounter;
+    private int currentStep;
 
 
-    public Game() {
+    public Game(int maxStepCounter) {
         aliveCell = '✖';
         deadCell = '⯐';
+        this.maxStepCounter=maxStepCounter;
     }
 
     /**
@@ -52,8 +55,8 @@ public class Game {
     /**
      * Method for writing of final position of our figure.
      */
-    public void writeProperties() {
-        try (PrintWriter printWriter = new PrintWriter("D:/Innopolis/src/homework7/output.properties")) {
+    public void writeProperties(String path) {
+        try (PrintWriter printWriter = new PrintWriter("src/homework7/"+path)) {
             Properties properties = new Properties();
             int x = 1;
             int y = 1;
@@ -105,7 +108,7 @@ public class Game {
     public void playGame() throws InterruptedException {
         do {
             nextLoop();
-        } while (changes != 0);
+        } while (changes != 0 && currentStep<maxStepCounter);
     }
 
     private void nextLoop() throws InterruptedException {
@@ -134,6 +137,7 @@ public class Game {
 
 
         setAliveValue();
+        currentStep++;
 
 
     }
@@ -208,6 +212,4 @@ public class Game {
 
         }
     }
-
-
 }

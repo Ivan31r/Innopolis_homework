@@ -15,12 +15,14 @@ public class GameOfLife {
     private final char willBeAlive = '✅';
     private final char willBeDead = '☠';
     private int changes;
+    private int maxStepCounter;
+    private int currentStep;
 
 
-
-    public GameOfLife() {
+    public GameOfLife(int maxStepCounter) {
         aliveCell = '✖';
         deadCell = '⯐';
+        this.maxStepCounter=maxStepCounter;
     }
 
     /**
@@ -50,8 +52,8 @@ public class GameOfLife {
     /**
      * Method for writing of final position of our figure.
      */
-    public void writeProperties() {
-        try (PrintWriter printWriter = new PrintWriter("D:/Innopolis/src/homework7/output.properties")) {
+    public void writeProperties(String path) {
+        try (PrintWriter printWriter = new PrintWriter("src/homework7/"+path)) {
             Properties properties = new Properties();
             int x = 1;
             int y = 1;
@@ -102,7 +104,7 @@ public class GameOfLife {
     public void playGame() {
         do {
             nextLoop();
-        } while (changes != 0);
+        } while (changes != 0 && currentStep<maxStepCounter);
     }
 
     private void nextLoop() {
@@ -113,35 +115,8 @@ public class GameOfLife {
             }
         }
         setAliveValue();
+        currentStep++;
     }
-
-
-//    public void doGame() throws InterruptedException {
-//        int core = Runtime.getRuntime().availableProcessors();
-//        int part = gameField.length / core;
-//        for (int count = 0; count < core; count++) {
-//            if (part - count == 1) {
-//                part = gameField.length - (((gameField.length / core) + 1) * (core - 1));
-//            }
-//            int finalPart = part;
-//            Thread thread = new Thread(() -> {
-//                doNextLoop(startIndex.get(), finalPart);
-//                startIndex.addAndGet(finalPart);
-//            });
-//            thread.start();
-//            thread.join();
-//
-//        }
-//        setAliveValue();
-//    }
-
-//    private void doNextLoop(int start, int end) {
-//        for (int i = start; i++ < end; i++) {
-//            for (int y = 0; y < width; y++) {
-//                checkCell(i, y);
-//            }
-//        }
-//    }
 
 
     private boolean innerCheck(int x, int y) {
