@@ -40,6 +40,13 @@ public class CleanerImpl implements Cleaner {
     }
 
 
+    /**
+     * Inner method for objects. This method do default all primitive value
+     * @param object Income object, not a Map implementation.
+     * @param fieldsToCleanup Set with fields,which will have default value in object
+     * @throws IllegalAccessException
+     */
+
     private static void cleanNotMapObject(Object object, Set<String> fieldsToCleanup) throws IllegalAccessException {
         Class<?> userClass = object.getClass();
 
@@ -90,6 +97,68 @@ public class CleanerImpl implements Cleaner {
         }
     }
 
+    /**
+     * Inner method for objects. This method print all value,which fieldsToOutput has.
+     * @param object Income object, it could be any object.
+     * @param fieldsToOutput Set with field
+     * @throws IllegalAccessException
+     */
+    private static void printFieldsAsString(Object object, Set<String> fieldsToOutput) throws IllegalAccessException {
+        Class<?> userClass = object.getClass();
+        Field[] fields = userClass.getDeclaredFields();
+
+        for (String s : fieldsToOutput) {
+            if (!Arrays.stream(fields).map(Field::getName).collect(Collectors.toList()).contains(s)) {
+                throw new IllegalArgumentException(" =( " + s);
+            }
+        }
+
+        for (Field field : fields) {
+            field.setAccessible(true);
+        }
+        for (Field field : fields) {
+            if (fieldsToOutput.contains(field.getName())) {
+                Class<?> fieldType = field.getType();
+                switch (fieldType.getName()) {
+                    case "int":
+                        System.out.println("int =" + String.valueOf(field.get(object)));
+                        break;
+                    case "byte":
+                        System.out.println("byte = " + String.valueOf(field.get(object)));
+                        break;
+                    case "short":
+                        System.out.println("short = " + String.valueOf(field.get(object)));
+                        break;
+                    case "long":
+                        System.out.println("long = " + String.valueOf(field.get(object)));
+                        break;
+                    case "char":
+                        System.out.println("char = " + String.valueOf(field.get(object)));
+                        break;
+                    case "double":
+                        System.out.println("double = " + String.valueOf(field.get(object)));
+                        break;
+                    case "float":
+                        System.out.println("float = " + String.valueOf(field.get(object)));
+                        break;
+                    case "boolean":
+                        System.out.println("boolean = " + String.valueOf(field.get(object)));
+                        break;
+                    default:
+                        System.out.println(field.getType().getCanonicalName() + " = " + field.get(object).toString());
+                }
+            }
+
+        }
+    }
+
+    /**
+     * Method for delete keys from instance of Map implementation class.
+     * @param map Income object,Map implementation,has key and value.
+     * @param fieldsToCleanup Set with field for delete.
+     * @param fieldsToOutput Set with field for printing. 
+     * @throws IllegalAccessException
+     */
     private static void cleanMap(Map map, Set<String> fieldsToCleanup, Set<String> fieldsToOutput) throws IllegalAccessException {
 
         for (String s : fieldsToCleanup) {
@@ -119,56 +188,6 @@ public class CleanerImpl implements Cleaner {
         System.out.println(stringBuilder);
 
 
-    }
-
-
-    private static void printFieldsAsString(Object user, Set<String> fieldsToOutput) throws IllegalAccessException {
-        Class<?> userClass = user.getClass();
-        Field[] fields = userClass.getDeclaredFields();
-
-        for (String s : fieldsToOutput) {
-            if (!Arrays.stream(fields).map(Field::getName).collect(Collectors.toList()).contains(s)) {
-                throw new IllegalArgumentException(" =( " + s);
-            }
-        }
-
-        for (Field field : fields) {
-            field.setAccessible(true);
-        }
-        for (Field field : fields) {
-            if (fieldsToOutput.contains(field.getName())) {
-                Class<?> fieldType = field.getType();
-                switch (fieldType.getName()) {
-                    case "int":
-                        System.out.println("int =" + String.valueOf(field.get(user)));
-                        break;
-                    case "byte":
-                        System.out.println("byte = " + String.valueOf(field.get(user)));
-                        break;
-                    case "short":
-                        System.out.println("short = " + String.valueOf(field.get(user)));
-                        break;
-                    case "long":
-                        System.out.println("long = " + String.valueOf(field.get(user)));
-                        break;
-                    case "char":
-                        System.out.println("char = " + String.valueOf(field.get(user)));
-                        break;
-                    case "double":
-                        System.out.println("double = " + String.valueOf(field.get(user)));
-                        break;
-                    case "float":
-                        System.out.println("float = " + String.valueOf(field.get(user)));
-                        break;
-                    case "boolean":
-                        System.out.println("boolean = " + String.valueOf(field.get(user)));
-                        break;
-                    default:
-                        System.out.println(field.getType().getCanonicalName() + " = " + field.get(user).toString());
-                }
-            }
-
-        }
     }
 
 }
