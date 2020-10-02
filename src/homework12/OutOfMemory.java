@@ -10,8 +10,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class OutOfMemory {
 
     public static void main(String[] args) throws ClassNotFoundException {
-//        doJavaHeadSpace();
-        doMetaspace();
+        doJavaHeadSpace();
+//        doMetaspace();
 
 
     }
@@ -35,11 +35,11 @@ public class OutOfMemory {
         }
     }
 
-    public static void doMetaspace() throws ClassNotFoundException {
-        PersonalClassLoader classLoader = new PersonalClassLoader();
-        while (true){
-            classLoader.classLoader();
-        }
-    }
+//    public static void doMetaspace() throws ClassNotFoundException {
+//        PersonalClassLoader classLoader = new PersonalClassLoader();
+//        while (true){
+//            classLoader.classLoader();
+//        }
+//    }
 
 }
