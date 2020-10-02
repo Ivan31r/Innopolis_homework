@@ -1,16 +1,16 @@
-package homework8;
+package homework8.main;
 
 public class User {
     private short age;
     private String name;
     private boolean sex;
-    private char c;
+    private char ch;
 
     public User(short age, String name, boolean sex, char c) {
         this.age = age;
         this.name = name;
         this.sex = sex;
-        this.c = c;
+        this.ch = c;
     }
 
     @Override
@@ -19,7 +19,7 @@ public class User {
                 "age=" + age +
                 ", name=" + name  +
                 ", sex=" + sex +
-                ", c=" + c +
+                ", c=" + ch +
                 '}';
     }
 
@@ -36,6 +36,6 @@ public class User {
     }
 
     public char getC() {
-        return c;
+        return ch;
     }
 }
