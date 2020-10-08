@@ -1,2 +1,2 @@
-set program argument for change max size of meta space:
- -XX:MaxMetaspaceSize=128
+set VM option for change max size of meta space:
+ -XX:MaxMetaspaceSize=128m
