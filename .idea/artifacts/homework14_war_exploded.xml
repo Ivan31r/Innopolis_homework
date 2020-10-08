@@ -13,6 +13,14 @@
         <element id="directory" name="classes">
           <element id="module-output" name="homework14" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: javax.faces:jsf-api:2.1" />
+          <element id="library" level="project" name="Maven: org.primefaces:primefaces:8.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.8" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.8" />
+          <element id="library" level="project" name="Maven: org.json:org.json:chargebee-1.0" />
+        </element>
       </element>
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/homework14/target/homework14/META-INF/MANIFEST.MF" />
